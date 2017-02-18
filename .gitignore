@@ -45,3 +45,19 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+#==============================
+#     Unity Ignored Files   
+#==============================
+
+01_ProjectSetup/Temp/
+01_ProjectSetup/Library
+01_ProjectSetup/Obj/
+
+*.csproj
+*.unityproj
+*.sln
+*.user
+*.userprefs
+*.DS_store
