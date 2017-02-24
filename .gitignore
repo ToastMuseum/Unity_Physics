@@ -51,9 +51,17 @@ Temporary Items
 #     Unity Ignored Files   
 #==============================
 
+# Unity 01_ProjectSetup project folder
+#
 01_ProjectSetup/Temp/
 01_ProjectSetup/Library
 01_ProjectSetup/Obj/
+
+# Unity Physics project folder
+#
+Unity_Physics/Temp/
+Unity_Physics/Library
+Unity_Physics/Obj/
 
 *.csproj
 *.unityproj
