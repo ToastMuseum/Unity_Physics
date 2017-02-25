@@ -43,7 +43,7 @@ public class PhysicsEngine : MonoBehaviour {
 
 	public void AddForce (Vector3 forceVector){
 		forceVectorList.Add (forceVector);
-		Debug.Log ("Adding force " + forceVector + " to " + gameObject.name);
+		//Debug.Log ("Adding force " + forceVector + " to " + gameObject.name);
 	}
 
 	void CalculateGravity(){
@@ -51,8 +51,8 @@ public class PhysicsEngine : MonoBehaviour {
 		foreach (PhysicsEngine physicsEngineA in physicsEngineArray) {
 			foreach (PhysicsEngine physicsEngineB in physicsEngineArray) {
 				if (physicsEngineA != physicsEngineB && physicsEngineA != this) {
-					Debug.Log ("Calculating Gravitational Force exerted on" + physicsEngineA.name +
-					" due to " + physicsEngineB.name);
+					//Debug.Log ("Calculating Gravitational Force exerted on" + physicsEngineA.name +
+					//" due to " + physicsEngineB.name);
 
 					Vector3 offset = physicsEngineA.transform.position - physicsEngineB.transform.position;
 					float rsquared = Mathf.Pow (offset.magnitude, 2f);
@@ -101,11 +101,9 @@ public class PhysicsEngine : MonoBehaviour {
 		lineRenderer = gameObject.AddComponent<LineRenderer>();
 		lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-		lineRenderer.startColor = Color.yellow;
-		lineRenderer.endColor=Color.yellow;
+		lineRenderer.startColor = lineRenderer.endColor = Color.yellow;
+		lineRenderer.startWidth = lineRenderer.endWidth = 0.2f;
 
-		lineRenderer.startWidth = 0.2f;
-		lineRenderer.endWidth = 0.2f;
 
 		lineRenderer.useWorldSpace = false;
 
@@ -115,7 +113,10 @@ public class PhysicsEngine : MonoBehaviour {
 		if (showTrails) {
 			lineRenderer.enabled = true;
 			numberOfForces = forceVectorList.Count;
-			lineRenderer.SetVertexCount(numberOfForces * 2);
+
+			lineRenderer.numPositions = numberOfForces * 2;
+			//deprecated: lineRenderer.SetVertexCount(numberOfForces * 2);
+
 			//Draw each line
 			int i = 0;
 			foreach (Vector3 forceVector in forceVectorList) {
