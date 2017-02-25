@@ -22,6 +22,7 @@ public class PhysicsEngine : MonoBehaviour {
 
 	private List<Vector3> forceVectorList = new List<Vector3>();
 	private PhysicsEngine[] physicsEngineArray;
+
 	private const float bigG = 6.674e-11f;	// [m^3/(Kg s^2)]
 
 
@@ -42,23 +43,24 @@ public class PhysicsEngine : MonoBehaviour {
 
 	public void AddForce (Vector3 forceVector){
 		forceVectorList.Add (forceVector);
+		Debug.Log ("Adding force " + forceVector + " to " + gameObject.name);
 	}
 
 	void CalculateGravity(){
 
 		foreach (PhysicsEngine physicsEngineA in physicsEngineArray) {
 			foreach (PhysicsEngine physicsEngineB in physicsEngineArray) {
-				if (physicsEngineA != physicsEngineB) {
-					//Debug.Log ("Calculating Gravitational Force exerted on" + physicsEngineA.name +
-					//" due to " + physicsEngineB.name);
+				if (physicsEngineA != physicsEngineB && physicsEngineA != this) {
+					Debug.Log ("Calculating Gravitational Force exerted on" + physicsEngineA.name +
+					" due to " + physicsEngineB.name);
 
 					Vector3 offset = physicsEngineA.transform.position - physicsEngineB.transform.position;
 					float rsquared = Mathf.Pow (offset.magnitude, 2f);
-					float gravityMagnitude = (bigG * physicsEngineA.mass * physicsEngineA.mass) / rsquared;
+					float gravityMagnitude = bigG * physicsEngineA.mass * physicsEngineB.mass / rsquared;
 
 					Vector3 gravityFeltVector = gravityMagnitude * offset.normalized;
 
-					physicsEngineA.AddForce (-1*gravityFeltVector);
+					physicsEngineA.AddForce (-gravityFeltVector);
 				}
 			}
 		}
@@ -94,6 +96,8 @@ public class PhysicsEngine : MonoBehaviour {
 	private int numberOfForces;
 
 	void InitializeTrails(){
+
+
 		lineRenderer = gameObject.AddComponent<LineRenderer>();
 		lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
@@ -102,7 +106,9 @@ public class PhysicsEngine : MonoBehaviour {
 
 		lineRenderer.startWidth = 0.2f;
 		lineRenderer.endWidth = 0.2f;
+
 		lineRenderer.useWorldSpace = false;
+
 	}
 
 	void DrawTrails(){
