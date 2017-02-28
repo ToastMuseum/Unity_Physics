@@ -21,20 +21,20 @@ public class PhysicsEngine : MonoBehaviour {
 	public Vector3 netForceVector;	// N [Kg m/s^2] Newtons
 
 	private List<Vector3> forceVectorList = new List<Vector3>();
-	private PhysicsEngine[] physicsEngineArray;
 
-	private const float bigG = 6.674e-11f;	// [m^3/(Kg s^2)]
+	//private PhysicsEngine[] physicsEngineArray;
+	//private const float bigG = 6.674e-11f;	// [m^3/(Kg s^2)]
 
 
 	// Use this for initialization
 	void Start () {
 		InitializeTrails ();
-		physicsEngineArray = GameObject.FindObjectsOfType<PhysicsEngine> ();
+		//physicsEngineArray = GameObject.FindObjectsOfType<PhysicsEngine> ();
 	}
  
 	void FixedUpdate(){
 		DrawTrails ();
-		CalculateGravity ();
+		//CalculateGravity ();	
 		UpdatePosition ();
 	}
 		
@@ -46,6 +46,7 @@ public class PhysicsEngine : MonoBehaviour {
 		//Debug.Log ("Adding force " + forceVector + " to " + gameObject.name);
 	}
 
+	/*
 	void CalculateGravity(){
 
 		foreach (PhysicsEngine physicsEngineA in physicsEngineArray) {
@@ -66,6 +67,7 @@ public class PhysicsEngine : MonoBehaviour {
 		}
 
 	}
+	*/
 		
 	void UpdatePosition(){
 
