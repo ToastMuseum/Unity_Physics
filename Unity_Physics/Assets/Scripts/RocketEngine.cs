@@ -24,6 +24,8 @@ public class RocketEngine : MonoBehaviour {
 	}
 	
 	void FixedUpdate(){
+		/* Replaced by BurnFuel()
+		 
 		if (fuelMass > FuelThisUpdate ()) {
 			// reduce fuel mass
 			fuelMass -= FuelThisUpdate ();
@@ -35,6 +37,7 @@ public class RocketEngine : MonoBehaviour {
 		} else {
 			//Debug.LogWarning ("Out of fuel");
 		}
+		*/
 	}
 
 	float FuelThisUpdate(){
@@ -61,9 +64,25 @@ public class RocketEngine : MonoBehaviour {
 
 	}
 
-	void ExertForce(){
+	public void ExertForce(){
 		currentThrust = thrustPercent * maxThrust * 1000f;
 		Vector3 thrustVector = thrustUnitVector.normalized * currentThrust;  //N
 		physicsEngine.AddForce(thrustVector);
 	}
+
+	public void BurnFuel(){
+		if (fuelMass > FuelThisUpdate ()) {
+			// reduce fuel mass
+			fuelMass -= FuelThisUpdate ();
+
+			// reduce the physics engine mass
+			physicsEngine.mass -= FuelThisUpdate ();
+			physicsEngine.AddForce (thrustUnitVector);
+			ExertForce ();
+		} else {
+			//Debug.LogWarning ("Out of fuel");
+		}
+	}
+
+
 }
